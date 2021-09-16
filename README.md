@@ -33,6 +33,9 @@ This project requires materials:
 - Configure `authbind`: `sudo touch /etc/authbind/byport/80; sudo chmod 500 /etc/authbind/byport/80; sudo chown pi /etc/authbind/byport/80`
 - Copy file `other/chicken-coop.service` to `/etc/systemd/system/chicken-coop.service`, then reload systemd (`sudo systemctl daemon-reload`) and enable the service `sudo systemctl enable chicken-coop.service`
 
+![WebAPP Day](other/webapp-day.png)
+![WebAPP Day](other/webapp-night.png)
+
 # Electronic assembly
 
 Please refer to the schema below to connect elements. Also **connect the Arduino to the Raspberry Pi via USB**, this is needed as they are communicating internally.
