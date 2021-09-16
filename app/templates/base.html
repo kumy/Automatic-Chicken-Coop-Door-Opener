@@ -1,0 +1,13 @@
+{%- extends "bootstrap/base.html" %}
+
+{% block title %}Automatic chicken coop door opener{% endblock %}
+{% import "bootstrap/fixes.html" as fixes %}
+
+{% block head %}
+  {{ super() }}
+  {{ fixes.ie8() }}
+{%- endblock %}
+
+{% block styles -%}
+    {{ super() }}
+{% endblock %}

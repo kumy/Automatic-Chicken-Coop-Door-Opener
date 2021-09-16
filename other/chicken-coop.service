@@ -1,0 +1,23 @@
+[Unit]
+Description = Automatic Chicken Coop Door Opener
+After = network.target redis-server.service
+Wants = redis-server.service
+
+[Service]
+PermissionsStartOnly = true
+PIDFile = /run/chicken-coop/chicken-coop.pid
+User = pi
+Group = pi
+WorkingDirectory = /home/pi/GIT/door
+ExecStartPre = /bin/mkdir /run/chicken-coop
+ExecStartPre = /bin/chown -R pi:pi /run/chicken-coop
+ExecStart = authbind gunicorn3 -b 0.0.0.0:80 -w1 'app:create_app()' --pid /run/chicken-coop/chicken-coop.pid
+ExecReload = /bin/kill -s HUP $MAINPID
+ExecStop = /bin/kill -s TERM $MAINPID
+ExecStopPost = /bin/rm -rf /run/chicken-coop
+PrivateTmp = true
+Restart = on-failure
+RestartSec = 5s
+
+[Install]
+WantedBy = multi-user.target

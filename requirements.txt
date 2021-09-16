@@ -1,0 +1,10 @@
+Flask===1.0.2
+flask-bootstrap
+flask-nav
+#flask-debug
+RPi.GPIO==0.7.0
+flask_caching==1.10.1
+flask-serial==1.1.0
+redis==3.5.3
+flask-mqtt==1.1.1
+Flask-APScheduler==1.12.2

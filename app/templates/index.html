@@ -1,0 +1,97 @@
+{%- extends "base.html" %}
+
+{% block styles %}
+{{ super() }}
+<style>
+  body {
+    margin: 20px;
+{%- if data.cache.get("direction_wanted")=='Opening' %}
+    background-color: #b5d3ff;
+{%- else %}
+    background-color: #142b54;
+    color: #ccc;
+{%- endif %}
+  }
+
+  .temperature {
+    font-size: 36px;
+    font-weight: bold;
+  }
+</style>
+{% endblock %}
+
+{% import "bootstrap/utils.html" as utils %}
+
+{% block content %}
+<div class="container" style="background-color: dark-grey">
+  {%- with messages = get_flashed_messages(with_categories=True) %}
+  {%- if messages %}
+  <div class="row">
+    <div class="col-md-12">
+      {{utils.flashed_messages(messages)}}
+    </div>
+  </div>
+  {%- endif %}
+  {%- endwith %}
+
+  <h3>Chicken coop door opener</h3>
+  <div class="row">
+    <div class="col-md-4">
+      <div class="temperature text-center">
+        {{ data.cache.get("temperature") }} &deg;C
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <img src="{{ url_for('static', filename = data.picture) }}" class="img-responsive center-block" alt="Latest screenshot">
+    </div>
+
+  </div>
+
+  &nbsp;
+
+  <div class="row">
+    <div class="col-md-12">
+      {%- if data.cache.get("direction_wanted") == 'Opening' %}
+      <a href="{{ url_for('.close_door') }}" class="btn btn-primary btn-lg btn-block">Close now</a>
+      {% else %}
+      <a href="{{ url_for('.open_door') }}" class="btn btn-primary btn-lg btn-block">Open now</a>
+      {%- endif %}
+    </div>
+  </div>
+
+  &nbsp;
+
+  <div class="row">
+    <div class="col-md-12">
+      <img src="http://{{ data.host }}:8081/" class="img-responsive center-block" alt="Latest screenshot">
+    </div>
+  </div>
+
+  &nbsp;
+
+  <h4>Debug</h4>
+  <table class="table table-">
+    <tr>
+      <th>Key</th>
+      <th>Value</th>
+    </tr>
+    {% for k, v in data.cache.get_dict("temperature", "sensor_open", "sensor_close", "completed_steps", "remaining_steps", "direction_wanted", "direction", "sleeping", "override", "uptime").items() %}
+    <tr>
+      <td>{{ k }}</td>
+      <td>{{ v }}</td>
+    </tr>
+    {% endfor %}
+  </table>
+
+  {% if data.cache.get("override") %}
+  &nbsp;
+  <div class="row">
+    <div class="col-md-12">
+      <a href="{{ url_for('.disable_override') }}" class="btn btn-primary btn-lg btn-block">Disable override</a>
+    </div>
+  </div>
+  {% endif %}
+
+</div>
+{%- endblock %}
