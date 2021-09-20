@@ -55,8 +55,8 @@ Print files from folder `other/3D-parts`:
 - `stepper-gear.stl`
 - `winder.stl`
 - `IR-holder.stl`
-- `case-without-clip.stl` (paste it on `IR-holder.stl`)
-- `IR-case-mount` (TODO)
+- `IR-holder-base.stl`
+- `case-without-clip.stl` (use some glue to paste it on `IR-holder.stl`)
 
 
 ![Box front](other/3D-parts/box-front.jpg "Front")
@@ -82,6 +82,5 @@ This project is released under [GNU GPLv3](LICENSE) license.
 - The chicken egg is from [Icon Fonts](https://www.onlinewebfonts.com/icon/552882) and is licensed by CC BY 3.0
 - The day night original svg is from [Free SVG](https://freesvg.org/day-and-night) and is licensed as Public Domain
 - The electronic schematic image was generated using a self build [Fritzing](https://fritzing.org/) install.
-- The Pi Camera mount is a derivative of [Thing ico
-Simple PiCam Case/Mount](https://www.thingiverse.com/thing:2613031)
-- The infrared ring is a derivative of [Infrared Ring Mount SV-6B](https://www.thingiverse.com/thing:643221)
+- The Pi Camera mount with infrared ring is a derivative of [Thing ico
+Simple PiCam Case/Mount](https://www.thingiverse.com/thing:2613031), [Infrared Ring Mount SV-6B](https://www.thingiverse.com/thing:643221) and [GoPro customizable mounts, and a library to expand](https://www.thingiverse.com/thing:62800)
