@@ -25,8 +25,10 @@ frontend = Blueprint('frontend', __name__)
 
 @ser.on_message()
 def handle_message(msg):
-    # pprint.pprint(json.loads(msg))
     data = json.loads(msg)
+    # import pprint
+    # pprint.pprint(data)
+    # print('', flush=True)
     cache.set_many(data)
 
 
@@ -49,8 +51,10 @@ def handle_mqtt_message(client, userdata, message):
 
     if data["topic"] == 'chicken-coop/cmnd/ACTION':
         if data["payload"] == 'OPEN':
+            print('MQTT Open!', flush=True)
             door.open()
         elif data["payload"] == 'CLOSE':
+            print('MQTT Close!', flush=True)
             door.close()
     if data["topic"] == 'chicken-coop/tele/OVERRIDE':
         cache.set('override', bool(strtobool(data["payload"])))
