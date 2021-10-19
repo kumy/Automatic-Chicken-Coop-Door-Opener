@@ -8,7 +8,7 @@ unsigned long status_throttle = millis();
 #define MOTOR_STEPS 200
 #define MICROSTEP 32
 #define RPM 30
-#define MAX_ROTATE_DEGREES 360 * 3
+#define MAX_ROTATE_DEGREES 360 * 13
 
 #define DIR 8
 #define STEP 9
