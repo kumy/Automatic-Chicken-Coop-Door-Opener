@@ -36,6 +36,7 @@ def handle_message(msg):
 def handle_connect(client, userdata, flags, rc):
     mqtt.subscribe('chicken-coop/cmnd/ACTION')
     mqtt.subscribe('chicken-coop/tele/OVERRIDE')
+    mqtt.subscribe('chicken-coop/cmnd/OVERRIDE')
     temperature.read()
     door.publish_override(False)
     door.publish_state()
@@ -58,6 +59,10 @@ def handle_mqtt_message(client, userdata, message):
             door.close()
     if data["topic"] == 'chicken-coop/tele/OVERRIDE':
         cache.set('override', bool(strtobool(data["payload"])))
+        print('MQTT Override TELE! {}'.format(bool(strtobool(data["payload"]))), flush=True)
+    if data["topic"] == 'chicken-coop/cmnd/OVERRIDE':
+        cache.set('override', bool(strtobool(data["payload"])))
+        print('MQTT Override CMND! {}'.format(bool(strtobool(data["payload"]))), flush=True)
 
 
 @frontend.route('/')
