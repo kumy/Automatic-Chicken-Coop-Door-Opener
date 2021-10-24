@@ -3,7 +3,7 @@ import RPi.GPIO as GPIO
 
 if __name__ == "__main__":
     app = create_app()
-    app.run(host='0.0.0.0', debug=True)
+    app.run(host='::', port='80', debug=True)
 
     GPIO.cleanup()
     exit()
