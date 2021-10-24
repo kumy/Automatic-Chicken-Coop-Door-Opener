@@ -95,7 +95,7 @@ class Door:
 
     def publish_override(self, enable=True):
         # print("publish: {}".format(data))
-        mqtt.publish('chicken-coop/tele/OVERRIDE', enable)
+        mqtt.publish('chicken-coop/cmnd/OVERRIDE', enable)
 
 
 door = Door()
