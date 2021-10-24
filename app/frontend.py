@@ -70,7 +70,7 @@ def index():
     o = urlparse(request.base_url)
     data = {
         'picture': 'day.svg' if cache.get('direction_wanted') == 'Opening' else 'night.svg',
-        'host': o.hostname,
+        'host': 'http://{}:8081/'.format(o.hostname),
         'cache': cache,
     }
     return render_template('index.html', data=data)
