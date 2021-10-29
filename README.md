@@ -26,7 +26,7 @@ This project requires materials:
 - First install your preferred Linux distribution (I've simply used Raspberry Pi
  OS).
 - (optional) Install `motion`: `sudo apt install motion` (my config file in the `other` directory) and make it start at boot (edit `/etc/default/motion`)
-- Install `redis`: `sudo apt install redis` and enable start on boot `sudo systemctl enable redis`
+- Install `redis server`: `sudo apt install redis-server` and enable start on boot `sudo systemctl enable redis-server`
 - Clone this project GIT repository
 - Install python required libraries: `sudo pip3 install -r requirements.txt`
 - Install `gunicorn3` and `authbind`: `sudo apt install gunicorn3 authbind`
