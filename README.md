@@ -81,6 +81,7 @@ This project is released under [GNU GPLv3](LICENSE) license.
 
 - The chicken egg is from [Icon Fonts](https://www.onlinewebfonts.com/icon/552882) and is licensed by CC BY 3.0
 - The day night original svg is from [Free SVG](https://freesvg.org/day-and-night) and is licensed as Public Domain
+- The Alarm svg is from [Free SVG](https://freesvg.org/gyrophare) and is licensed as Public Domain
 - The electronic schematic image was generated using a self build [Fritzing](https://fritzing.org/) install.
 - The Pi Camera mount with infrared ring is a derivative of [Thing ico
 Simple PiCam Case/Mount](https://www.thingiverse.com/thing:2613031), [Infrared Ring Mount SV-6B](https://www.thingiverse.com/thing:643221) and [GoPro customizable mounts, and a library to expand](https://www.thingiverse.com/thing:62800)

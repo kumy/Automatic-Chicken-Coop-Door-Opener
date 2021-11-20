@@ -71,7 +71,7 @@ def handle_mqtt_message(client, userdata, message):
 def index():
     o = urlparse(request.base_url)
     data = {
-        'picture': 'day.svg' if cache.get('direction_wanted') == 'Opening' else 'night.svg',
+        'picture': 'day.svg' if cache.get('direction_wanted') == 'Opening' else 'gyrophare.svg' if cache.get("sensor_close") == 'False' and cache.get("sleeping") == 'True' else 'night.svg',
         'webcam1': 'http://{}:8081/'.format(o.hostname),
         'webcam2': 'http://{}:8082/'.format(o.hostname),
         'cache': cache,

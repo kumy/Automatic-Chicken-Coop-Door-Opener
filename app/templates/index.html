@@ -7,6 +7,8 @@
     margin: 20px;
 {%- if data.cache.get("direction_wanted")=='Opening' %}
     background-color: #b5d3ff;
+{%- elif data.cache.get("direction_wanted")=='Closing' and data.cache.get("sensor_close")=='False' and data.cache.get("sleeping")=='True' %}
+    background-color: #541414;
 {%- else %}
     background-color: #142b54;
     color: #ccc;
@@ -16,6 +18,10 @@
   .temperature {
     font-size: 36px;
     font-weight: bold;
+  }
+
+  .img-status {
+    max-width: 100px;
   }
 </style>
 {% endblock %}
@@ -43,7 +49,7 @@
     </div>
 
     <div class="col-md-4">
-      <img src="{{ url_for('static', filename = data.picture) }}" class="img-responsive center-block" alt="Status">
+      <img src="{{ url_for('static', filename = data.picture) }}" class="img-responsive center-block img-status" alt="Status">
     </div>
 
   </div>
