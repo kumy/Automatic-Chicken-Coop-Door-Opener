@@ -92,6 +92,17 @@
     {% endfor %}
   </table>
 
+  <table class="table table-">
+    <tr>
+      <th>Pi Alerts</th>
+    </tr>
+    {% for v in data.cache.get("voltage") %}
+    <tr>
+      <td>{{ v }}</td>
+    </tr>
+    {% endfor %}
+  </table>
+
   {% if data.cache.get("override") %}
   &nbsp;
   <div class="row">

@@ -19,6 +19,7 @@ from markupsafe import escape
 from .common import cache
 from .door import door
 from .temperature import temperature
+from .voltage import voltage
 
 frontend = Blueprint('frontend', __name__)
 
@@ -38,6 +39,7 @@ def handle_connect(client, userdata, flags, rc):
     mqtt.subscribe('chicken-coop/tele/OVERRIDE')
     mqtt.subscribe('chicken-coop/cmnd/OVERRIDE')
     temperature.read()
+    voltage.read()
     door.publish_override(False)
     door.publish_state()
     cache.set('override', None)
