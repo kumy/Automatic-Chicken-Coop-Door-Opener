@@ -13,7 +13,9 @@ class Temperature:
         temperatures = []
         for device in devices:
             with open(device) as f:
-                temperatures.append(int(f.read()) / 1000.0)
+                t = f.read()
+                if t is not '':
+                    temperatures.append(int(t) / 1000.0)
         avg = round(mean(temperatures), 1)
         cache.set("temperature", avg)
         return avg
