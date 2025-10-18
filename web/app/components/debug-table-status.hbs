@@ -1,0 +1,86 @@
+<h5 id="debug">Internal door</h5>
+<table class="table table-striped table-hover">
+  <thead>
+    <tr>
+      <th>Key</th>
+      <th>Value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>ouverture_porte</td>
+      <td>{{if @model.int.switch_chicken_coop_ouverture_porte "OPEN" "CLOSED"}}</td>
+    </tr>
+    <tr>
+      <td>button_open</td>
+      <td>{{@model.int.binary_sensor_chicken_coop_button_open}}</td>
+    </tr>
+    <tr>
+      <td>button_close</td>
+      <td>{{@model.int.binary_sensor_chicken_coop_button_close}}</td>
+    </tr>
+    <tr>
+      <td>sensor_open</td>
+      <td>{{@model.int.binary_sensor_chicken_coop_sensor_open}}</td>
+    </tr>
+    <tr>
+      <td>sensor_close</td>
+      <td>{{@model.int.binary_sensor_chicken_coop_sensor_close}}</td>
+    </tr>
+    <tr>
+      <td>direction</td>
+      <td>{{if @model.int.binary_sensor_chicken_coop_direction "OPENING" "CLOSING"}}</td>
+    </tr>
+    <tr>
+      <td>direction_wanted</td>
+      <td>{{if @model.int.binary_sensor_chicken_coop_direction_wanted "OPENING" "CLOSING"}}</td>
+    </tr>
+    <tr>
+      <td>completed_steps</td>
+      <td>{{@model.int.sensor_chicken_coop_completed_steps}}</td>
+    </tr>
+    <tr>
+      <td>remaining_steps</td>
+      <td>{{@model.int.sensor_chicken_coop_remaining_steps}}</td>
+    </tr>
+    <tr>
+      <td>sleeping</td>
+      <td>{{if @model.int.binary_sensor_chicken_coop_sleeping "SLEEPING" "MOVING"}}</td>
+    </tr>
+    <tr>
+      <td>arduino_uptime</td>
+      <td>{{@model.int.sensor_chicken_coop_arduino_uptime}}</td>
+    </tr>
+    <tr>
+      <td>uptime</td>
+      <td>{{@model.int.sensor_chicken_coop_uptime}}</td>
+    </tr>
+    <tr>
+      <td>mode_manuel</td>
+      <td>{{if @model.int.switch_chicken_coop_mode_manuel "ON" "OFF"}}</td>
+    </tr>
+    <tr>
+      <td>temperature_sensor</td>
+      <td>{{@model.int.sensor_chicken_coop_temperature_sensor}} &deg;C</td>
+    </tr>
+  </tbody>
+</table>
+
+<h5 id="debug">External door</h5>
+<table class="table table-striped table-hover">
+  <thead>
+  <tr>
+    <th>Key</th>
+    <th>Value</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr>
+    <td>cover_volet</td>
+    <td>{{if @model.ext.cover_volet "OPEN" "CLOSED"}}</td>
+  </tr>
+  </tbody>
+</table>
+
+{{yield}}
+

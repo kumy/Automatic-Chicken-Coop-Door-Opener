@@ -1,0 +1,28 @@
+@use "node_modules/bootstrap/scss/bootstrap";
+
+.day {
+  background-color: #b5d3ff;
+}
+
+.night {
+  background-color: #142b54;
+  color: #ccc;
+}
+
+.error {
+  background-color: #541414;
+}
+
+.temperature {
+  font-size: 36px;
+  font-weight: bold;
+}
+
+.img-status {
+  max-width: 100px;
+}
+
+img.camera {
+  max-height: 768px;
+  min-height: 295px;
+}

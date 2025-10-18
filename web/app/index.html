@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>ChickenCoopWeb</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    {{content-for "head"}}
+
+    <link integrity="" rel="stylesheet" href="{{rootURL}}assets/vendor.css">
+    <link integrity="" rel="stylesheet" href="{{rootURL}}assets/chicken-coop-web.css">
+    <link rel="icon" href="/favicon.ico">
+
+    {{content-for "head-footer"}}
+  </head>
+  <body class="day">
+    {{content-for "body"}}
+
+    <div id="ember-bootstrap-wormhole"></div>
+    <script src="{{rootURL}}assets/vendor.js"></script>
+    <script src="{{rootURL}}assets/chicken-coop-web.js"></script>
+
+    {{content-for "body-footer"}}
+  </body>
+</html>

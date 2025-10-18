@@ -1,0 +1,51 @@
+{{page-title "Index"}}
+
+<div class="container {{this.bgcolor}}">
+  <div class="text-center">
+    <h3 id="top">Chicken coop door opener</h3>
+    <div class="row">
+      <div class="col-md-6">
+        <Temperature @model={{@model}} />
+      </div>
+
+      <div class="col-md-4">
+        <StatusIcon @model={{@model}} />
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col">
+        <InternalDoorButton @model={{@model}} />
+      </div>
+      <div class="col">
+        <ExternalDoorButton @model={{@model}} />
+      </div>
+    </div>
+
+    <br>
+
+    <div class="row">
+      <div class="col-md-12">
+        <Camera @camId="1" />
+      </div>
+    </div>
+
+  <br>
+    <div class="row">
+      <div class="col-md-12">
+        <Camera @camId="3" />
+      </div>
+    </div>
+
+  <br>
+    <div class="row">
+      <div class="col-md-12">
+        <Camera @camId="2" />
+      </div>
+    </div>
+  </div>
+  <a href="http://192.168.130.197/" target="_blank" rel="noopener noreferrer">direct link</a>
+  <br>
+  <h4 id="debug">Debug</h4>
+  <DebugTableStatus @model={{@model}} />
+</div>

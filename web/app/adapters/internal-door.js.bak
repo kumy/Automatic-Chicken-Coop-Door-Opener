@@ -1,0 +1,51 @@
+import Adapter from '@ember-data/adapter';
+import { service } from '@ember/service';
+
+var SOCKET = 'http://192.168.130.196:8080/events';
+
+export default class InternalDoorAdapter extends Adapter {
+  @service store;
+
+  socket = undefined;
+  data = {
+    data: [
+      {
+        type: 'internal-door',
+        id: '1',
+        attributes: {},
+      },
+    ],
+  };
+
+  init() {
+    console.log('Initializing internal door...');
+    super.init();
+    this.store.push(this.data);
+
+    var es = new EventSource(SOCKET);
+
+    es.onopen = function () {};
+
+    es.addEventListener('state', (e) => {
+      const response = JSON.parse(e.data);
+      // console.log('New state', response.id, response.state);
+      this.data['data'][0]['attributes'][response.id.replace('-', '_')] =
+        response.state;
+      this.store.push(this.data.serialize());
+    });
+
+    this.socket = undefined;
+  }
+
+  findRecord() {
+    return {
+      data: this.data['data'][0],
+    };
+  }
+
+  // updateRecord(record) {
+  //   console.log("record", record);
+  //     // this.data['data'][0]['attributes'][response.id.replace('-', '_')] = ""
+  //     this.store.push(this.data);
+  // }
+}
