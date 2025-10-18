@@ -6,7 +6,7 @@ unsigned long status_throttle = millis();
 #define STATUS_THROTTLE 1000
 
 #define MOTOR_STEPS 200
-#define MICROSTEP 32
+#define MICROSTEP 16  // Changed from 32 to reduce high-frequency noise (1/16 is quieter than 1/32)
 #define RPM 30
 #define MAX_ROTATE_DEGREES 360 * 13
 
