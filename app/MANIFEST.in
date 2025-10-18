@@ -1,0 +1,6 @@
+include README.md
+include DEPLOYMENT.md
+include INSTALLATION.md
+include GUNICORN_FIX.md
+include SYSTEMD_CONFIG.md
+recursive-include src *.py

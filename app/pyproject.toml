@@ -1,0 +1,31 @@
+[project]
+name = "chicken-coop-app"
+version = "0.1.8"
+description = "Automatic Chicken Coop"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "aioesphomeserver",
+    "apigpio-mpf>=0.0.4",
+    "colored>=2.2.4",
+    "pyserial-asyncio>=0.6",
+    "gunicorn>=23.0.0",
+]
+
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.uv]
+package = true
+
+[tool.uv.sources]
+aioesphomeserver = { git = "https://github.com/peterkeen/aioesphomeserver.git" }
+apigpio-mpf = { git = "https://github.com/2e0byo/apigpio.git" }
+
+[project.scripts]
+chicken-door = "door:main"
+chicken-door2 = "door2:cli_main"
