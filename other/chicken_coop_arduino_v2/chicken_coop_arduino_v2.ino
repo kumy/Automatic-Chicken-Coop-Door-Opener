@@ -30,17 +30,52 @@ DRV8825 stepper(MOTOR_STEPS, DIR, STEP, SLEEP, MODE0, MODE1, MODE2);
 #define OPENING 1
 #define CLOSING -1
 
+// Debounce configuration
+#define DEBOUNCE_DELAY 20  // 20ms debounce time
+
+// Debounce state tracking
+unsigned long lastSensorOpenDebounce = 0;
+unsigned long lastSensorCloseDebounce = 0;
+unsigned long lastDirectionDebounce = 0;
+bool lastSensorOpenState = 1;
+bool lastSensorCloseState = 1;
+bool lastDirectionState = 1;
+
+// Debounce function for noise-resistant sensor reading
+bool debouncedRead(int pin, bool &lastState, unsigned long &lastDebounce) {
+  bool reading = digitalRead(pin);
+
+  // If the reading has changed, reset the debounce timer
+  if (reading != lastState) {
+    lastDebounce = millis();
+    lastState = reading;
+  }
+
+  // Only accept the new reading if it has been stable for DEBOUNCE_DELAY
+  if ((millis() - lastDebounce) > DEBOUNCE_DELAY) {
+    return reading;
+  }
+
+  // Return the last stable state if not enough time has passed
+  return lastState;
+}
+
 void setup() {
     Serial.begin(115200);
     stepper.begin(RPM);
     stepper.setMicrostep(MICROSTEP);
+
+    // Configure sensor pins with pull-up resistors to prevent floating inputs
+    pinMode(SENSOR_OPEN_PIN, INPUT_PULLUP);
+    pinMode(SENSOR_CLOSED_PIN, INPUT_PULLUP);
+    pinMode(READ_DIRECTION_PIN, INPUT_PULLUP);
 }
 
 bool read_sensor_open() {
-  return !digitalRead(SENSOR_OPEN_PIN);
+  return !debouncedRead(SENSOR_OPEN_PIN, lastSensorOpenState, lastSensorOpenDebounce);
 }
 bool read_sensor_close() {
-  return !digitalRead(SENSOR_CLOSED_PIN);
+  return !debouncedRead(SENSOR_CLOSED_PIN, lastSensorCloseState, lastSensorCloseDebounce);
 }
 bool is_sleeping() {
   return !digitalRead(SLEEP);
@@ -52,23 +87,26 @@ void send_status() {
     stats["sensor_close"] = read_sensor_close();
     stats["completed_steps"] = stepper.getStepsCompleted();
     stats["remaining_steps"] = stepper.getStepsRemaining();
-    stats["direction_wanted"] = (digitalRead(READ_DIRECTION_PIN) == OPENING ? "Opening" : "Closing");
+    stats["direction_wanted"] = (debouncedRead(READ_DIRECTION_PIN, lastDirectionState, lastDirectionDebounce) == OPENING ? "Opening" : "Closing");
     stats["direction"] = (stepper.getDirection() == 1 ? "Opening" : "Closing");
     stats["sleeping"] = is_sleeping();
     stats["uptime"] = millis();
     serializeJson(stats, Serial);
+    Serial.println();  // Add newline for Python parser
     status_throttle = millis();
   }
 }
 
 void read_direction() {
-  if (digitalRead(READ_DIRECTION_PIN) == OPEN && !read_sensor_open()) {
+  bool direction = debouncedRead(READ_DIRECTION_PIN, lastDirectionState, lastDirectionDebounce);
+
+  if (direction == OPEN && !read_sensor_open()) {
     if (stepper.getDirection() == CLOSING || read_sensor_close() && is_sleeping()) {
       stepper.startRotate(OPENING * MAX_ROTATE_DEGREES);
       stepper.enable();
     }
   }
-  if (digitalRead(READ_DIRECTION_PIN) == CLOSE && !read_sensor_close()) {
+  if (direction == CLOSE && !read_sensor_close()) {
     if (stepper.getDirection() == OPENING || read_sensor_open() && is_sleeping()) {
       stepper.startRotate(CLOSING * MAX_ROTATE_DEGREES);
       stepper.enable();
@@ -94,7 +132,12 @@ void loop() {
 
     // 0 wait time indicates the motor has stopped
     if (wait_time_micros <= 0) {
-        stepper.disable();       // comment out to keep motor powered
+        // Keep motor powered when door is open (holds position against gravity)
+        // Disable motor when closed
+        if (read_sensor_close()) {
+            stepper.disable();
+        }
+        // If door is open: motor stays enabled to hold position
         send_status();
     }
 
